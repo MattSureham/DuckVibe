@@ -23,7 +23,6 @@ An automated software development system with specialized AI agents:
 
 - **End-to-end automation**: From idea to deployed application
 - **Multi-agent collaboration**: 7 ducks working together
-- **Multi-agent collaboration**: 7 specialized agents working together
 - **Multiple AI providers**: OpenAI, Anthropic, Gemini, Minimax, Moonshot, Ollama (local)
 - **Quality gates**: Testing at every stage
 - **Multiple deployment targets**: Docker, Kubernetes, Vercel, AWS
