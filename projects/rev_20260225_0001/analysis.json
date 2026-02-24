@@ -1,0 +1,80 @@
+{
+  "id": "rev_20260225_0001",
+  "source_path": "/Users/matthew/.openclaw/workspace/skills/tavily-search",
+  "analysis_type": "full",
+  "tech_stack": {
+    "primary_language": "Python",
+    "framework": null,
+    "frontend": {},
+    "backend": {},
+    "database": null,
+    "deployment": {}
+  },
+  "architecture": {
+    "pattern": "Unknown",
+    "layers": [],
+    "components": [],
+    "entry_points": []
+  },
+  "api_endpoints": [],
+  "database_schema": {
+    "type": "Unknown",
+    "tables": [],
+    "models": []
+  },
+  "dependencies": {
+    "production": [],
+    "development": [],
+    "total_count": 0
+  },
+  "code_metrics": {
+    "total_files": 0,
+    "lines_of_code": 0,
+    "blank_lines": 0,
+    "comment_lines": 0,
+    "file_types": {}
+  },
+  "reconstructed_spec": {
+    "title": "Tavily Search",
+    "description": "A Python application using Unknown architecture",
+    "purpose": "Based on analysis of 0 files with 0 lines of code",
+    "tech_stack_summary": {
+      "primary_language": "Python",
+      "framework": null,
+      "frontend": {},
+      "backend": {},
+      "database": null,
+      "deployment": {}
+    },
+    "architecture_pattern": "Unknown",
+    "entry_points": [],
+    "inferred_features": [
+      "Data management",
+      "API endpoints",
+      "Business logic"
+    ],
+    "api_summary": {
+      "total_endpoints": 0,
+      "endpoints_by_method": {}
+    },
+    "database_summary": {
+      "type": "Unknown",
+      "tables": [],
+      "models": []
+    },
+    "reconstruction_confidence": "medium"
+  },
+  "documentation": {
+    "overview": "# Tavily Search\n\nA Python application using Unknown architecture",
+    "architecture": "## Architecture\n\n**Pattern:** Unknown\n**Primary Language:** Python\n**Framework:** None\n\n### Entry Points\n\n\n### Inferred Features\n- Data management\n- API endpoints\n- Business logic\n",
+    "api_documentation": "No API endpoints detected.",
+    "setup_instructions": "## Setup Instructions\n\n```bash\n# Create virtual environment\npython -m venv venv\nsource venv/bin/activate  # On Windows: venv\\Scripts\\activate\n\n# Install dependencies\npip install -r requirements.txt\n\n# Run application\npython app.py\n```\n"
+  },
+  "diagrams": {
+    "high_level": "\n\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502              Application Architecture         \u2502\n\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n\u2502                                             \u2502\n\u2502   \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510      \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u2502\n\u2502   \u2502   Frontend  \u2502\u2500\u2500\u2500\u2500\u2500\u2500\u25b6\u2502     Backend     \u2502 \u2502\n\u2502   \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518      \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2502\n\u2502                                \u2502            \u2502\n\u2502                                \u25bc            \u2502\n\u2502                        \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u2502\n\u2502                        \u2502    Database     \u2502 \u2502\n\u2502                        \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2502\n\u2502                                             \u2502\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n",
+    "layers": "\n\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502           Unknown Architecture           \u2502\n\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n"
+  },
+  "status": "analyzed",
+  "analyzed_at": "2026-02-25T01:19:40.296987",
+  "reverse_engineer_agent": "v1.0"
+}

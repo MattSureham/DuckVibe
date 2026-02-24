@@ -7,6 +7,7 @@ An automated software development system with specialized AI agents:
 - 👨‍💻 **Dev Agent** - Developer (writes code)
 - 🧪 **QA Agent** - Quality Assurance (tests everything)
 - 🚀 **Deploy Agent** - DevOps (deploys to any environment)
+- 🔍 **Reverse Engineer** - Analyzes existing codebases
 
 Inspired by the [APE (Automated Paper Evaluation)](https://ape.socialcatalystlab.org/) project.
 
@@ -20,6 +21,50 @@ Inspired by the [APE (Automated Paper Evaluation)](https://ape.socialcatalystlab
 - **Multiple deployment targets**: Docker, Kubernetes, Vercel, AWS
 - **Tournament system**: Compare different implementations
 - **TrueSkill ratings**: Rank features by quality
+
+---
+
+### 5. Reverse Engineer Agent (`agents/re/reverse_engineer_agent.py`)
+
+**Purpose:** Analyze existing codebases and extract specifications
+
+**Capabilities:**
+- Detects technology stack automatically
+- Analyzes architecture patterns (MVC, Component-based, etc.)
+- Extracts API endpoints from route files
+- Identifies database schema and models
+- Generates code metrics (LOC, file counts, complexity)
+- Creates architecture diagrams
+- Produces reconstructed PM-style specifications
+
+**Usage:**
+```bash
+# Analyze local codebase
+python3 agents/re/reverse_engineer_agent.py /path/to/existing/project
+
+# Analyze GitHub repository
+python3 agents/re/reverse_engineer_agent.py https://github.com/user/repo
+
+# Analysis types: quick, full, deep
+python3 agents/re/reverse_engineer_agent.py /path/to/project full
+```
+
+**Output:**
+- `projects/rev_YYYYMMDD_XXXX/analysis.json` - Structured analysis data
+- `projects/rev_YYYYMMDD_XXXX/RECONSTRUCTED_SPEC.md` - Human-readable specification
+
+**Example Workflow - Reverse Engineering:**
+```bash
+# Step 1: Reverse engineer existing codebase
+python3 agents/re/reverse_engineer_agent.py https://github.com/example/legacy-app
+
+# Step 2: Use reconstructed spec for new development
+REV_ID=$(ls -t projects/ | grep rev_ | head -1)
+cp projects/$REV_ID/RECONSTRUCTED_SPEC.md projects/feat_20250225_0001/
+
+# Step 3: Dev agent implements improved version
+python3 agents/dev/dev_agent.py feat_20250225_0001
+```
 
 ---
 

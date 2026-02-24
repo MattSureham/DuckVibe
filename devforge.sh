@@ -49,17 +49,23 @@ echo ""
 echo "1. PM Agent - Generate feature specification:"
 echo "   python3 agents/pm/pm_agent.py 'Your app idea' 'React, Node.js'"
 echo ""
-echo "2. Dev Agent - Develop the feature:"
+echo "2. Reverse Engineer - Analyze existing code:"
+echo "   python3 agents/re/reverse_engineer_agent.py /path/to/project"
+echo ""
+echo "3. Dev Agent - Develop the feature:"
 echo "   python3 agents/dev/dev_agent.py feat_YYYYMMDD_XXXX"
 echo ""
-echo "3. QA Agent - Test the implementation:"
+echo "4. QA Agent - Test the implementation:"
 echo "   python3 agents/qa/qa_agent.py feat_YYYYMMDD_XXXX unit integration"
 echo ""
-echo "4. Deploy Agent - Deploy to environment:"
+echo "5. Deploy Agent - Deploy to environment:"
 echo "   python3 agents/deploy/deploy_agent.py feat_YYYYMMDD_XXXX staging docker"
 echo ""
-echo "5. Full Pipeline - Run all agents:"
+echo "6. Full Pipeline - Run all agents:"
 echo "   ./devforge.sh full 'Your app idea'"
+echo ""
+echo "7. Reverse Engineer + Rebuild - Analyze and rebuild:"
+echo "   ./devforge.sh reverse https://github.com/user/repo"
 echo ""
 
 # Show recent features
@@ -74,12 +80,17 @@ fi
 if [ $# -eq 0 ]; then
     echo "Quick Actions:"
     echo "------------"
-    select action in "Create Feature (PM)" "Develop Feature" "Test Feature" "Deploy Feature" "Full Pipeline" "Exit"; do
+    select action in "Create Feature (PM)" "Reverse Engineer Codebase" "Develop Feature" "Test Feature" "Deploy Feature" "Full Pipeline" "Exit"; do
         case $action in
             "Create Feature (PM)")
                 read -p "Enter your app idea: " idea
                 read -p "Tech stack (optional, e.g., 'React, Node.js'): " stack
                 python3 agents/pm/pm_agent.py "$idea" "$stack"
+                break
+                ;;
+            "Reverse Engineer Codebase")
+                read -p "Enter path or GitHub URL: " source
+                python3 agents/re/reverse_engineer_agent.py "$source"
                 break
                 ;;
             "Develop Feature")
@@ -173,7 +184,13 @@ else
             echo ""
             echo "✅ Pipeline complete! Check projects/$FEAT_ID/"
             ;;
-        "pm")
+        "reverse")
+            if [ -z "$2" ]; then
+                echo "Usage: ./devforge.sh reverse <path_or_url>"
+                exit 1
+            fi
+            python3 agents/re/reverse_engineer_agent.py "$2"
+            ;;
             shift
             python3 agents/pm/pm_agent.py "$@"
             ;;
