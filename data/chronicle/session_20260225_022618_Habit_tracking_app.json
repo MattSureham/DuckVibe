@@ -1,0 +1,196 @@
+{
+  "session_id": "session_20260225_022618_Habit_tracking_app",
+  "generated_at": "2026-02-25T02:26:18.245333",
+  "summary": {
+    "total_events": 17,
+    "total_agents_involved": 5,
+    "total_handoffs": 4,
+    "total_decisions": 1,
+    "total_issues": 0,
+    "total_collaborations": 1,
+    "duration_seconds": 0.013123035430908203
+  },
+  "agent_statistics": {
+    "web_scraper": {
+      "actions_count": 1,
+      "total_duration_ms": 0,
+      "avg_duration_ms": 0.0,
+      "actions": [
+        "market_research"
+      ]
+    },
+    "pm": {
+      "actions_count": 1,
+      "total_duration_ms": 0,
+      "avg_duration_ms": 0.0,
+      "actions": [
+        "create_specification"
+      ]
+    },
+    "dev": {
+      "actions_count": 1,
+      "total_duration_ms": 0,
+      "avg_duration_ms": 0.0,
+      "actions": [
+        "generate_codebase"
+      ]
+    },
+    "qa": {
+      "actions_count": 1,
+      "total_duration_ms": 0,
+      "avg_duration_ms": 0.0,
+      "actions": [
+        "test_feature"
+      ]
+    },
+    "deploy": {
+      "actions_count": 1,
+      "total_duration_ms": 0,
+      "avg_duration_ms": 0.0,
+      "actions": [
+        "deploy_application"
+      ]
+    }
+  },
+  "timeline": [
+    {
+      "time": "2026-02-25T02:26:18.232210",
+      "sequence": 1,
+      "type": "session_start",
+      "description": "session_start: unknown"
+    },
+    {
+      "time": "2026-02-25T02:26:18.234685",
+      "sequence": 2,
+      "type": "agent_action",
+      "description": "web_scraper performed: market_research"
+    },
+    {
+      "time": "2026-02-25T02:26:18.234691",
+      "sequence": 3,
+      "type": "handoff",
+      "description": "web_scraper passed market_research_report to pm"
+    },
+    {
+      "time": "2026-02-25T02:26:18.236527",
+      "sequence": 4,
+      "type": "agent_action",
+      "description": "pm performed: create_specification"
+    },
+    {
+      "time": "2026-02-25T02:26:18.236531",
+      "sequence": 5,
+      "type": "decision",
+      "description": "pm decided: Build with React, Node.js"
+    },
+    {
+      "time": "2026-02-25T02:26:18.236533",
+      "sequence": 6,
+      "type": "checkpoint",
+      "description": "Checkpoint: specification - success"
+    },
+    {
+      "time": "2026-02-25T02:26:18.236536",
+      "sequence": 7,
+      "type": "handoff",
+      "description": "pm passed feature_specification to dev"
+    },
+    {
+      "time": "2026-02-25T02:26:18.239993",
+      "sequence": 8,
+      "type": "agent_action",
+      "description": "dev performed: generate_codebase"
+    },
+    {
+      "time": "2026-02-25T02:26:18.239998",
+      "sequence": 9,
+      "type": "checkpoint",
+      "description": "Checkpoint: development - success"
+    },
+    {
+      "time": "2026-02-25T02:26:18.240001",
+      "sequence": 10,
+      "type": "handoff",
+      "description": "dev passed codebase to qa"
+    },
+    {
+      "time": "2026-02-25T02:26:18.242953",
+      "sequence": 11,
+      "type": "agent_action",
+      "description": "qa performed: test_feature"
+    },
+    {
+      "time": "2026-02-25T02:26:18.242957",
+      "sequence": 12,
+      "type": "checkpoint",
+      "description": "Checkpoint: testing - passed_with_warnings"
+    },
+    {
+      "time": "2026-02-25T02:26:18.245318",
+      "sequence": 13,
+      "type": "agent_action",
+      "description": "deploy performed: deploy_application"
+    },
+    {
+      "time": "2026-02-25T02:26:18.245322",
+      "sequence": 14,
+      "type": "handoff",
+      "description": "deploy passed deployed_application to user"
+    },
+    {
+      "time": "2026-02-25T02:26:18.245324",
+      "sequence": 15,
+      "type": "checkpoint",
+      "description": "Checkpoint: deployment - success"
+    },
+    {
+      "time": "2026-02-25T02:26:18.245326",
+      "sequence": 16,
+      "type": "collaboration",
+      "description": "web_scraper + pm + dev + qa + deploy collaborated on: Full pipeline execution"
+    },
+    {
+      "time": "2026-02-25T02:26:18.245329",
+      "sequence": 17,
+      "type": "session_end",
+      "description": "session_end: unknown"
+    }
+  ],
+  "handoff_chain": "\n\ud83d\udccb Handoff Chain:\n\n   Step 1:\n   \u250c\u2500 web_scraper\n   \u2502  creates: market_research_report\n   \u2193\n   \u2514\u2500 pm receives\n\n   Step 2:\n   \u250c\u2500 pm\n   \u2502  creates: feature_specification\n   \u2193\n   \u2514\u2500 dev receives\n\n   Step 3:\n   \u250c\u2500 dev\n   \u2502  creates: codebase\n   \u2193\n   \u2514\u2500 qa receives\n\n   Step 4:\n   \u250c\u2500 deploy\n   \u2502  creates: deployed_application\n   \u2193\n   \u2514\u2500 user receives\n",
+  "decision_log": [
+    {
+      "type": "decision",
+      "timestamp": "2026-02-25T02:26:18.236531",
+      "agent": "pm",
+      "decision": "Build with React, Node.js",
+      "rationale": "Based on market research and technical requirements",
+      "alternatives": [
+        "Alternative stacks evaluated"
+      ],
+      "sequence_number": 5
+    }
+  ],
+  "issues_encountered": [],
+  "collaboration_patterns": [
+    {
+      "type": "collaboration",
+      "timestamp": "2026-02-25T02:26:18.245326",
+      "agents": [
+        "web_scraper",
+        "pm",
+        "dev",
+        "qa",
+        "deploy"
+      ],
+      "activity": "Full pipeline execution",
+      "result": "Successfully built and deployed feat_20260225_0003",
+      "sequence_number": 16
+    }
+  ],
+  "bottlenecks": [],
+  "recommendations": [
+    "All agent interactions were logged successfully",
+    "Review the handoff chain for potential optimizations",
+    "Consider adding more granular checkpoints for better visibility"
+  ]
+}

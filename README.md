@@ -3,12 +3,13 @@
 🚀 **Multi-Agent Software Development Pipeline**
 
 An automated software development system with specialized AI agents:
+- 🕷️ **Web Scraper** - Market research and competitor analysis
 - 🎯 **PM Agent** - Product Manager (generates specs)
 - 🔍 **Reverse Engineer** - Analyzes existing codebases
-- 🕷️ **Web Scraper** - Market research and competitor analysis
 - 👨‍💻 **Dev Agent** - Developer (writes code)
 - 🧪 **QA Agent** - Quality Assurance (tests everything)
 - 🚀 **Deploy Agent** - DevOps (deploys to any environment)
+- 📜 **Chronicle Agent** - Records all agent interactions and collaboration
 
 Inspired by the [APE (Automated Paper Evaluation)](https://ape.socialcatalystlab.org/) project.
 
@@ -17,7 +18,7 @@ Inspired by the [APE (Automated Paper Evaluation)](https://ape.socialcatalystlab
 ## ✨ Features
 
 - **End-to-end automation**: From idea to deployed application
-- **Multi-agent collaboration**: 5 specialized agents working together
+- **Multi-agent collaboration**: 7 specialized agents working together
 - **Multiple AI providers**: OpenAI, Anthropic, Gemini, Minimax, Moonshot, Ollama (local)
 - **Quality gates**: Testing at every stage
 - **Multiple deployment targets**: Docker, Kubernetes, Vercel, AWS
@@ -367,6 +368,61 @@ python3 agents/scraper/web_scraper_engineer.py "e-commerce platform" deep
 
 ---
 
+#### Chronicle Agent - Record Everything
+
+The Chronicle Agent automatically records all agent interactions throughout the pipeline:
+
+```bash
+# The Chronicle Agent runs automatically with the pipeline
+python3 pipeline.py full "Your app idea"
+
+# Or run standalone to review a session
+python3 agents/chronicle/chronicle_agent.py demo
+```
+
+**What it Records:**
+- 🤝 **Handoffs** - When one agent passes work to another
+- 💡 **Decisions** - Why agents made specific choices
+- ✅ **Actions** - What each agent did
+- ⚠️ **Issues** - Problems encountered and resolutions
+- 📊 **Metrics** - Performance and timing data
+
+**Output:**
+- `data/chronicle/session_YYYYMMDD_HHMMSS_feature_id.json` - Structured event log
+- `data/chronicle/session_YYYYMMDD_HHMMSS_feature_id_narrative.md` - Human-readable story
+
+**Example Chronicle Output:**
+```
+📜 CHRONICLE SUMMARY
+   Total events: 47
+   Handoffs: 6
+   Decisions: 3
+   Collaborations: 1
+
+Agent Performance:
+- WEB_SCRAPER: 1 actions, 5.2s total
+- PM: 1 actions, 8.1s total
+- DEV: 1 actions, 45.3s total
+- QA: 1 actions, 23.7s total
+- DEPLOY: 1 actions, 12.4s total
+
+Handoff Chain:
+   web_scraper → pm: market_research_report
+   pm → dev: feature_specification
+   dev → qa: codebase
+   qa → deploy: tested_application
+   deploy → user: deployed_application
+```
+
+**Why Chronicle Agent?**
+- **Transparency**: See exactly how agents collaborate
+- **Debugging**: Identify bottlenecks and failures
+- **Optimization**: Find ways to improve the pipeline
+- **Documentation**: Auto-generate project history
+- **Learning**: Understand multi-agent decision-making
+
+---
+
 ## 🏆 Tournament System
 
 Compare different implementations:
@@ -401,7 +457,8 @@ devforge-pipeline/
 │   ├── scraper/web_scraper_engineer.py  # Web Scraper Agent
 │   ├── dev/dev_agent.py         # Developer Agent
 │   ├── qa/qa_agent.py           # QA Agent
-│   └── deploy/deploy_agent.py   # Deploy Agent
+│   ├── deploy/deploy_agent.py   # Deploy Agent
+│   └── chronicle/chronicle_agent.py  # Chronicle Agent (records everything)
 ├── projects/                     # Generated projects
 │   ├── feat_YYYYMMDD_XXXX/      # Feature projects
 │   └── rev_YYYYMMDD_XXXX/       # Reverse engineering projects
@@ -409,6 +466,7 @@ devforge-pipeline/
 │   ├── scraped/                  # Web scraper research
 │   ├── test_results/             # QA reports
 │   ├── deployments/              # Deployment records
+│   ├── chronicle/                # Chronicle recordings
 │   └── tournament.json           # Tournament data
 ├── config/
 │   └── .env                      # API keys

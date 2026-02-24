@@ -1,0 +1,177 @@
+{
+  "id": "research_20260225_022618",
+  "topic": "Habit tracking app",
+  "timestamp": "2026-02-25T02:26:18.234411",
+  "competitors": [
+    {
+      "name": "Market Leader A",
+      "url": "https://example.com/a",
+      "type": "leader",
+      "popularity": "high"
+    },
+    {
+      "name": "Innovator B",
+      "url": "https://example.com/b",
+      "type": "innovator",
+      "popularity": "medium"
+    },
+    {
+      "name": "Niche Player C",
+      "url": "https://example.com/c",
+      "type": "niche",
+      "popularity": "low"
+    }
+  ],
+  "trends": [
+    {
+      "trend": "AI-powered Habit tracking app",
+      "sentiment": "positive",
+      "volume": "high",
+      "growth": "+45%",
+      "platforms": [
+        "Twitter",
+        "LinkedIn",
+        "Reddit"
+      ]
+    },
+    {
+      "trend": "Mobile-first design",
+      "sentiment": "positive",
+      "volume": "high",
+      "growth": "+32%",
+      "platforms": [
+        "Twitter",
+        "Product Hunt"
+      ]
+    },
+    {
+      "trend": "Collaborative Habit tracking app",
+      "sentiment": "positive",
+      "volume": "medium",
+      "growth": "+28%",
+      "platforms": [
+        "Reddit",
+        "Hacker News"
+      ]
+    },
+    {
+      "trend": "Privacy concerns",
+      "sentiment": "negative",
+      "volume": "medium",
+      "growth": "+15%",
+      "platforms": [
+        "Twitter",
+        "Mastodon"
+      ]
+    }
+  ],
+  "features": [],
+  "pain_points": [
+    {
+      "issue": "Too complex / steep learning curve",
+      "frequency": "high",
+      "severity": "high",
+      "source": "User reviews"
+    },
+    {
+      "issue": "Expensive pricing for small teams",
+      "frequency": "high",
+      "severity": "medium",
+      "source": "Reddit, Twitter"
+    },
+    {
+      "issue": "Poor mobile experience",
+      "frequency": "medium",
+      "severity": "high",
+      "source": "App Store reviews"
+    },
+    {
+      "issue": "Slow performance with large data",
+      "frequency": "medium",
+      "severity": "high",
+      "source": "User forums"
+    },
+    {
+      "issue": "Limited customization options",
+      "frequency": "medium",
+      "severity": "medium",
+      "source": "Feature requests"
+    },
+    {
+      "issue": "Poor customer support",
+      "frequency": "low",
+      "severity": "medium",
+      "source": "Trustpilot, G2"
+    }
+  ],
+  "user_sentiment": {},
+  "market_data": {},
+  "insights": {
+    "market_opportunity": "Emerging/niche market - first-mover advantage possible",
+    "differentiation_suggestions": [
+      "Simplicity-first approach - minimal feature set",
+      "Freemium model with generous free tier",
+      "Mobile-first design, not just responsive",
+      "Focus on specific niche rather than general audience",
+      "Superior performance as key differentiator"
+    ],
+    "feature_recommendations": [
+      {
+        "name": "User Authentication",
+        "priority": "must_have",
+        "reason": "Universal requirement"
+      },
+      {
+        "name": "Mobile Responsive",
+        "priority": "must_have",
+        "reason": "Universal requirement"
+      },
+      {
+        "name": "Dark Mode",
+        "priority": "should_have",
+        "reason": "Common in competitors"
+      },
+      {
+        "name": "Real-time Sync",
+        "priority": "should_have",
+        "reason": "User expectation"
+      },
+      {
+        "name": "Guided Onboarding",
+        "priority": "differentiator",
+        "reason": "Addresses complexity complaint"
+      },
+      {
+        "name": "AI Assistant",
+        "priority": "differentiator",
+        "reason": "Trending feature"
+      }
+    ],
+    "pricing_strategy": {
+      "model": "Freemium",
+      "free_tier": "Generous - core features free",
+      "paid_tier": "$5-10/month",
+      "rationale": "Address pricing pain point"
+    },
+    "target_audience": {
+      "primary": {
+        "segment": "Small teams / startups",
+        "pain_point": "Existing tools too complex/expensive",
+        "needs": [
+          "Simplicity",
+          "Affordability",
+          "Quick setup"
+        ]
+      },
+      "secondary": {
+        "segment": "Individual professionals",
+        "pain_point": "Overkill features in current tools",
+        "needs": [
+          "Focus",
+          "Performance",
+          "Privacy"
+        ]
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 DevForge - Pipeline Orchestrator
-Coordinates all 5 agents: PM, Reverse Engineer, Dev, QA, Deploy
+Coordinates all 6 agents: Chronicle, Web Scraper, PM, Reverse Engineer, Dev, QA, Deploy
 """
 
 import os
@@ -14,6 +14,7 @@ from typing import Dict, List, Optional
 
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).parent / "agents"))
 
 from ai_provider import get_ai_provider
 
@@ -25,6 +26,10 @@ class PipelineOrchestrator:
         self.ai_provider = get_ai_provider(config_path)
         self.projects_dir = Path("projects")
         self.projects_dir.mkdir(exist_ok=True)
+        
+        # Initialize chronicle agent
+        from chronicle.chronicle_agent import get_chronicle_agent
+        self.chronicle = get_chronicle_agent(config_path)
         
         # Load configuration
         self.config = self._load_config()
@@ -55,8 +60,13 @@ class PipelineOrchestrator:
         """
         pipeline_run_id = f"pipeline_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         
+        # Start chronicle recording
+        feature_id_placeholder = idea.replace(" ", "_")[:30]
+        self.chronicle.start_session(feature_id_placeholder, "pipeline_run")
+        
         print(f"\n{'='*70}")
         print(f"🚀 DEVFORGE PIPELINE: {pipeline_run_id}")
+        print(f"📜 CHRONICLE: Recording all agent interactions")
         print(f"{'='*70}\n")
         
         results = {
@@ -73,6 +83,13 @@ class PipelineOrchestrator:
                 rev_result = self._run_reverse_engineer(source_codebase)
                 results["steps"].append({"step": "reverse_engineer", "result": rev_result})
                 
+                # Chronicle: Record reverse engineering
+                self.chronicle.record_agent_action(
+                    "reverse_engineer", "analyze_codebase",
+                    source_codebase, rev_result,
+                    {"files_analyzed": rev_result.get("metrics", {}).get("total_files", 0)}
+                )
+                
                 # Use reconstructed spec as basis
                 idea = f"Rebuild and improve: {rev_result.get('spec', {}).get('title', 'Application')}"
                 tech_stack = tech_stack or rev_result.get('tech_stack', {}).get('primary_language', 'React, Node.js')
@@ -83,6 +100,20 @@ class PipelineOrchestrator:
                 print("-" * 70)
                 scraper_result = self._run_web_scraper(idea)
                 results["steps"].append({"step": "web_scraper", "result": scraper_result})
+                
+                # Chronicle: Record market research
+                self.chronicle.record_agent_action(
+                    "web_scraper", "market_research",
+                    idea, scraper_result,
+                    {"competitors_found": scraper_result.get("competitors_found", 0)}
+                )
+                
+                # Chronicle: Record handoff to PM
+                self.chronicle.record_handoff(
+                    "web_scraper", "pm",
+                    "market_research_report",
+                    f"{scraper_result.get('competitors_found', 0)} competitors, {scraper_result.get('pain_points', 0)} pain points"
+                )
             
             # Step 1: PM Agent
             print("\n📋 STEP 1: PRODUCT MANAGER")
@@ -91,11 +122,52 @@ class PipelineOrchestrator:
             results["steps"].append({"step": "pm", "result": pm_result})
             feature_id = pm_result["feature_id"]
             
+            # Chronicle: Record PM work
+            self.chronicle.record_agent_action(
+                "pm", "create_specification",
+                idea, pm_result,
+                {"user_stories": pm_result.get("user_stories_count", 0)}
+            )
+            
+            # Chronicle: Record decision
+            self.chronicle.record_decision(
+                "pm", f"Build with {tech_stack or 'default stack'}",
+                "Based on market research and technical requirements",
+                ["Alternative stacks evaluated"]
+            )
+            
+            # Chronicle: Record checkpoint
+            self.chronicle.record_checkpoint("specification", "success", pm_result)
+            
+            # Chronicle: Record handoff to Dev
+            self.chronicle.record_handoff(
+                "pm", "dev",
+                "feature_specification",
+                f"{pm_result.get('user_stories_count', 0)} user stories, API spec, DB schema"
+            )
+            
             # Step 2: Dev Agent
             print("\n📋 STEP 2: DEVELOPER")
             print("-" * 70)
             dev_result = self._run_dev_agent(feature_id)
             results["steps"].append({"step": "dev", "result": dev_result})
+            
+            # Chronicle: Record Dev work
+            self.chronicle.record_agent_action(
+                "dev", "generate_codebase",
+                feature_id, dev_result,
+                {"files_generated": dev_result.get("files_generated", 0)}
+            )
+            
+            # Chronicle: Record checkpoint
+            self.chronicle.record_checkpoint("development", "success", dev_result)
+            
+            # Chronicle: Record handoff to QA
+            self.chronicle.record_handoff(
+                "dev", "qa",
+                "codebase",
+                f"{dev_result.get('files_generated', 0)} files in {dev_result.get('tech_stack_used', {}).get('frontend', {}).get('name', 'unknown')} + {dev_result.get('tech_stack_used', {}).get('backend', {}).get('name', 'unknown')}"
+            )
             
             # Step 3: QA Agent
             print("\n📋 STEP 3: QUALITY ASSURANCE")
@@ -103,12 +175,33 @@ class PipelineOrchestrator:
             qa_result = self._run_qa_agent(feature_id)
             results["steps"].append({"step": "qa", "result": qa_result})
             
+            # Chronicle: Record QA work
+            self.chronicle.record_agent_action(
+                "qa", "test_feature",
+                feature_id, qa_result,
+                {"score": qa_result.get("overall_score", 0)}
+            )
+            
+            # Chronicle: Record checkpoint
+            self.chronicle.record_checkpoint("testing", qa_result.get("status", "unknown"), qa_result)
+            
             # Check if QA passed
             qa_score = qa_result.get("test_report", {}).get("summary", {}).get("overall_score", 0)
             if qa_score < 50:
                 print(f"\n⚠️  QA score ({qa_score}%) too low. Pipeline halted.")
                 print("   Fix issues and re-run pipeline.")
+                
+                # Chronicle: Record issue
+                self.chronicle.record_issue(
+                    "qa", "low_test_score",
+                    f"QA score {qa_score}% below threshold",
+                    "Pipeline halted for fixes"
+                )
+                
                 results["status"] = "failed_qa"
+                
+                # End chronicle
+                self.chronicle.end_session("failed_qa")
                 return results
             
             # Step 4: Deploy Agent
@@ -117,9 +210,37 @@ class PipelineOrchestrator:
             deploy_result = self._run_deploy_agent(feature_id)
             results["steps"].append({"step": "deploy", "result": deploy_result})
             
+            # Chronicle: Record Deploy work
+            self.chronicle.record_agent_action(
+                "deploy", "deploy_application",
+                feature_id, deploy_result,
+                {"environment": "local", "platform": "docker"}
+            )
+            
+            # Chronicle: Record handoff (final delivery)
+            self.chronicle.record_handoff(
+                "deploy", "user",
+                "deployed_application",
+                f"Available at {list(deploy_result.get('urls', {}).values())[0] if deploy_result.get('urls') else 'local'}"
+            )
+            
+            # Chronicle: Record final checkpoint
+            self.chronicle.record_checkpoint("deployment", "success", deploy_result)
+            
+            # Chronicle: Record collaboration across all agents
+            self.chronicle.record_collaboration(
+                ["web_scraper", "pm", "dev", "qa", "deploy"],
+                "Full pipeline execution",
+                f"Successfully built and deployed {feature_id}"
+            )
+            
             results["status"] = "success"
             results["feature_id"] = feature_id
             results["completed_at"] = datetime.now().isoformat()
+            
+            # End chronicle recording
+            chronicle_report = self.chronicle.end_session("success")
+            results["chronicle"] = chronicle_report
             
             # Print summary
             self._print_summary(results)
@@ -128,6 +249,11 @@ class PipelineOrchestrator:
             results["status"] = "failed"
             results["error"] = str(e)
             print(f"\n❌ Pipeline failed: {e}")
+            
+            # Chronicle: Record the failure
+            self.chronicle.record_issue("pipeline", "exception", str(e))
+            self.chronicle.end_session("failed")
+            
             import traceback
             traceback.print_exc()
         
@@ -270,6 +396,18 @@ class PipelineOrchestrator:
         
         print(f"\n📁 Project location: projects/{results.get('feature_id', 'N/A')}/")
         print(f"📄 Pipeline record: data/{results['pipeline_id']}.json")
+        
+        # Print chronicle summary if available
+        if "chronicle" in results:
+            chronicle = results["chronicle"]
+            summary = chronicle.get("summary", {})
+            print(f"\n📜 CHRONICLE SUMMARY")
+            print(f"   Total events: {summary.get('total_events', 0)}")
+            print(f"   Handoffs: {summary.get('total_handoffs', 0)}")
+            print(f"   Decisions: {summary.get('total_decisions', 0)}")
+            print(f"   Collaborations: {summary.get('total_collaborations', 0)}")
+            print(f"   Chronicle: data/chronicle/{chronicle.get('session_id', 'unknown')}_narrative.md")
+        
         print(f"{'='*70}\n")
 
 
