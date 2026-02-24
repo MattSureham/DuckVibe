@@ -1,23 +1,28 @@
-# DevForge Pipeline
+> 🦆 If it looks like a duck, swims like a duck, and **codes** like a duck... it's probably **DuckVibe**.
+> 
+> *"We don't check if our agents are human developers. We just check if they can quack out good code."*
 
-🚀 **Multi-Agent Software Development Pipeline**
+---
+
+# 🦆 DuckVibe
+
+**Vibe-coded software by a squad of duck agents.**
 
 An automated software development system with specialized AI agents:
-- 🕷️ **Web Scraper** - Market research and competitor analysis
-- 🎯 **PM Agent** - Product Manager (generates specs)
-- 🔍 **Reverse Engineer** - Analyzes existing codebases
-- 👨‍💻 **Dev Agent** - Developer (writes code)
-- 🧪 **QA Agent** - Quality Assurance (tests everything)
-- 🚀 **Deploy Agent** - DevOps (deploys to any environment)
-- 📜 **Chronicle Agent** - Records all agent interactions and collaboration
-
-Inspired by the [APE (Automated Paper Evaluation)](https://ape.socialcatalystlab.org/) project.
+- 🕷️ **Web Scraper Duck** - Market research and competitor analysis
+- 🎯 **PM Duck** - Product Manager (generates specs)
+- 🔍 **Reverse Engineer Duck** - Analyzes existing codebases
+- 👨‍💻 **Dev Duck** - Developer (writes code)
+- 🧪 **QA Duck** - Quality Assurance (tests everything)
+- 🚀 **Deploy Duck** - DevOps (deploys to any environment)
+- 📜 **Chronicle Duck** - Records all duck interactions
 
 ---
 
 ## ✨ Features
 
 - **End-to-end automation**: From idea to deployed application
+- **Multi-agent collaboration**: 7 ducks working together
 - **Multi-agent collaboration**: 7 specialized agents working together
 - **Multiple AI providers**: OpenAI, Anthropic, Gemini, Minimax, Moonshot, Ollama (local)
 - **Quality gates**: Testing at every stage
