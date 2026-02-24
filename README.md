@@ -6,9 +6,8 @@
 
 # 🦆 DuckVibe
 
-**Vibe-coded software by a squad of duck agents.**
 
-An automated software development system with specialized AI agents:
+An automated software development system with specialized duck agents:
 - 🕷️ **Web Scraper Duck** - Market research and competitor analysis
 - 🎯 **PM Duck** - Product Manager (generates specs)
 - 🔍 **Reverse Engineer Duck** - Analyzes existing codebases
