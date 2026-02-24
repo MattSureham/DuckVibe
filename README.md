@@ -4,10 +4,11 @@
 
 An automated software development system with specialized AI agents:
 - 🎯 **PM Agent** - Product Manager (generates specs)
+- 🔍 **Reverse Engineer** - Analyzes existing codebases
+- 🕷️ **Web Scraper** - Market research and competitor analysis
 - 👨‍💻 **Dev Agent** - Developer (writes code)
 - 🧪 **QA Agent** - Quality Assurance (tests everything)
 - 🚀 **Deploy Agent** - DevOps (deploys to any environment)
-- 🔍 **Reverse Engineer** - Analyzes existing codebases
 
 Inspired by the [APE (Automated Paper Evaluation)](https://ape.socialcatalystlab.org/) project.
 
@@ -16,11 +17,13 @@ Inspired by the [APE (Automated Paper Evaluation)](https://ape.socialcatalystlab
 ## ✨ Features
 
 - **End-to-end automation**: From idea to deployed application
-- **Multi-agent collaboration**: Each agent specializes in their domain
+- **Multi-agent collaboration**: 5 specialized agents working together
+- **Multiple AI providers**: OpenAI, Anthropic, Gemini, Minimax, Moonshot, Ollama (local)
 - **Quality gates**: Testing at every stage
 - **Multiple deployment targets**: Docker, Kubernetes, Vercel, AWS
 - **Tournament system**: Compare different implementations
 - **TrueSkill ratings**: Rank features by quality
+- **Reverse engineering**: Analyze and rebuild existing codebases
 
 ---
 
@@ -127,10 +130,26 @@ nano config/.env
 
 Add your API keys:
 ```bash
-# AI Model APIs
+# OpenAI (GPT-4, GPT-3.5)
 OPENAI_API_KEY="sk-..."
+
+# Anthropic (Claude)
 ANTHROPIC_API_KEY="sk-ant-..."
+
+# Google (Gemini)
 GEMINI_API_KEY="..."
+
+# Minimax (Chinese LLM)
+MINIMAX_API_KEY="..."
+MINIMAX_GROUP_ID="..."
+
+# Moonshot AI (Chinese LLM)
+MOONSHOT_API_KEY="..."
+
+# Ollama (Local LLM)
+OLLAMA_ENABLED="true"
+OLLAMA_BASE_URL="http://localhost:11434"
+OLLAMA_DEFAULT_MODEL="llama3.2"
 
 # Optional: Deployment
 DOCKER_USERNAME="..."
@@ -141,15 +160,55 @@ Get API keys:
 - [OpenAI](https://platform.openai.com)
 - [Anthropic](https://console.anthropic.com)
 - [Google AI](https://aistudio.google.com)
+- [Minimax](https://www.minimaxi.com/)
+- [Moonshot](https://www.moonshot.cn/)
+- [Ollama](https://ollama.com) - Local models
 
-### 3. Run Your First Pipeline
+### 3. Configure Agent Models
+
+Assign specific AI models to each agent in `config/.env`:
+
+```bash
+# PM Agent uses Claude for best reasoning
+PM_AGENT_MODEL="anthropic"
+PM_AGENT_MODEL_NAME="claude-3-5-sonnet-20241022"
+
+# Reverse Engineer uses local model for cost efficiency
+REVERSE_ENGINEER_MODEL="ollama"
+REVERSE_ENGINEER_MODEL_NAME="codellama"
+
+# Dev Agent uses Claude for code generation
+DEV_AGENT_MODEL="anthropic"
+DEV_AGENT_MODEL_NAME="claude-3-5-sonnet-20241022"
+
+# QA Agent uses GPT-4 for thorough testing
+QA_AGENT_MODEL="openai"
+QA_AGENT_MODEL_NAME="gpt-4o"
+
+# Deploy Agent uses GPT-4o-mini for speed
+DEPLOY_AGENT_MODEL="openai"
+DEPLOY_AGENT_MODEL_NAME="gpt-4o-mini"
+
+# Fallback if primary fails
+FALLBACK_MODEL="ollama"
+FALLBACK_MODEL_NAME="llama3.2"
+```
+
+### 4. Run the Pipeline
 
 ```bash
 # Interactive mode
 ./devforge.sh
 
-# Or full pipeline in one command
+# Full pipeline from idea
 ./devforge.sh full "Task management app" "React, Node.js"
+
+# Reverse engineer + rebuild
+./devforge.sh reverse https://github.com/user/legacy-app
+
+# Unified pipeline command
+python3 pipeline.py full "Your app idea"
+python3 pipeline.py reverse /path/to/existing/project
 ```
 
 ---
@@ -243,6 +302,71 @@ python3 agents/deploy/deploy_agent.py feat_20250225_0001 production aws
 
 ---
 
+#### Reverse Engineer Agent - Analyze Existing Code
+
+```bash
+python3 agents/re/reverse_engineer_agent.py <source_path>
+
+# Analyze local codebase
+python3 agents/re/reverse_engineer_agent.py /path/to/project
+
+# Analyze GitHub repository  
+python3 agents/re/reverse_engineer_agent.py https://github.com/user/repo
+```
+
+**Output:**
+- `projects/rev_YYYYMMDD_XXXX/analysis.json` - Structured analysis
+- `projects/rev_YYYYMMDD_XXXX/RECONSTRUCTED_SPEC.md` - Full specification
+
+---
+
+#### Web Scraper Agent - Market Research
+
+```bash
+python3 agents/scraper/web_scraper_engineer.py <topic> [depth]
+
+# Quick research
+python3 agents/scraper/web_scraper_engineer.py "task management app" quick
+
+# Deep research with competitor analysis
+python3 agents/scraper/web_scraper_engineer.py "e-commerce platform" deep
+```
+
+**Capabilities:**
+- **Competitor Analysis** - Identifies top competitors in the space
+- **Trend Detection** - Analyzes social media and forums for trends
+- **Pain Point Mining** - Extracts user complaints and feature requests
+- **Feature Extraction** - Documents common features across competitors
+- **Pricing Intelligence** - Suggests pricing based on market analysis
+- **Social Feed Crawling** - Gathers inspiration from Twitter, Reddit, HN
+
+**Output:**
+- `data/scraped/research_YYYYMMDD_HHMMSS.json` - Research data
+- `data/scraped/research_YYYYMMDD_HHMMSS_inspiration.md` - PM inspiration doc
+
+**Example PM Inspiration Output:**
+```markdown
+## Competitors Analyzed (6)
+- Todoist, Notion, Trello, Asana, ClickUp, Microsoft To Do
+
+## Market Trends
+- AI-powered features (+45% growth)
+- Mobile-first design (+32% growth)
+- Collaborative features (+28% growth)
+
+## User Pain Points
+- Too complex / steep learning curve
+- Expensive pricing for small teams
+- Poor mobile experience
+
+## Differentiation Suggestions
+- Simplicity-first approach
+- Generous freemium model
+- Mobile-native design
+```
+
+---
+
 ## 🏆 Tournament System
 
 Compare different implementations:
@@ -271,19 +395,18 @@ Uses [TrueSkill](https://www.microsoft.com/en-us/research/project/trueskill-rank
 ```
 devforge-pipeline/
 ├── agents/
+│   ├── ai_provider.py           # Unified AI provider interface
 │   ├── pm/pm_agent.py           # Product Manager Agent
+│   ├── re/reverse_engineer_agent.py  # Reverse Engineer Agent
+│   ├── scraper/web_scraper_engineer.py  # Web Scraper Agent
 │   ├── dev/dev_agent.py         # Developer Agent
 │   ├── qa/qa_agent.py           # QA Agent
 │   └── deploy/deploy_agent.py   # Deploy Agent
 ├── projects/                     # Generated projects
-│   └── feat_YYYYMMDD_XXXX/
-│       ├── feature_spec.json     # PM specification
-│       ├── codebase/             # Generated code
-│       │   ├── backend/          # Node.js + Express
-│       │   ├── frontend/         # React + Vite
-│       │   └── docker-compose.yml
-│       └── test_results.json     # QA results
+│   ├── feat_YYYYMMDD_XXXX/      # Feature projects
+│   └── rev_YYYYMMDD_XXXX/       # Reverse engineering projects
 ├── data/
+│   ├── scraped/                  # Web scraper research
 │   ├── test_results/             # QA reports
 │   ├── deployments/              # Deployment records
 │   └── tournament.json           # Tournament data
@@ -291,6 +414,7 @@ devforge-pipeline/
 │   └── .env                      # API keys
 ├── web/
 │   └── index.html                # Leaderboard UI
+├── pipeline.py                   # Unified pipeline orchestrator
 ├── devforge.sh                   # Main orchestrator
 └── README.md                     # This file
 ```
